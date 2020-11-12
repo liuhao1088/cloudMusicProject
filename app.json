@@ -1,6 +1,8 @@
 {
   "pages":[
-    "pages/inedx/inedx"
+    "pages/inedx/inedx",
+    "pages/personal/personal",
+    "pages/video/video"
   ],
   "window": {
     "navigationBarBackgroundColor": "#d43c33",
