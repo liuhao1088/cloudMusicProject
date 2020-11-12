@@ -42,27 +42,10 @@
   padding: 20rpx;
 }
 
-.recommend .header{
-  padding-bottom: 30rpx;
-}
-
-.recommend .header .title{
-  font-size: 32rpx;
-  line-height: 80rpx;
-  color: #666;
-}
-.recommend .header .more{
-  float: right;
-  border: 1rpx solid #333;
-  padding: 10rpx 20rpx;
-  font-size: 26rpx;
-  border-radius: 30rpx;
-}
-
 /* 推荐内容 */
 .recommend_scroll{
   display: flex;
-  /* padding: 20rpx; */
+  height: 300rpx;
 }
 
 .scroll_item{
@@ -84,4 +67,48 @@
    display: -webkit-box;
    -webkit-box-orient: vertical;
    -webkit-line-clamp: 2;
+}
+
+/* 排行榜 */
+.top_list{
+  padding: 20rpx;
+}
+
+.top_swiper{
+  height: 400rpx;
+}
+
+.swiper_item{
+  width: 96%;
+  background-color: #fbfbfb;
+}
+
+.swiper_item .title{
+  font-size: 30rpx;
+  line-height: 80rpx;
+}
+
+.music_item{
+  display: flex;
+  margin-bottom: 20rpx;
+}
+
+.music_item image{
+  height: 100rpx;
+  width: 100rpx;
+  border-radius: 6rpx;
+}
+
+.music_item .count{
+  height: 100rpx;
+  width: 100rpx;
+  line-height: 100rpx;
+  text-align: center;
+}
+
+.music_item .music_name{
+  height: 100rpx;
+  width: 100rpx;
+  line-height: 100rpx;
+  
 }
