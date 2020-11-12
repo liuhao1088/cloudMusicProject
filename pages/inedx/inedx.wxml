@@ -1,0 +1,80 @@
+<view class="maxdiv">
+  <!-- 轮播图 -->
+  <swiper class="banners" indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}"
+    duration="{{duration}}" indicator-active-color="#d43c33" indicator-color="ivory">
+    <swiper-item wx:for="{{imgUrl}}" wx:key="imgUrl">
+      <image mode="widthFix" src="{{item}}" class="slide-image" />
+    </swiper-item>
+  </swiper>
+
+  <!-- 导航 -->
+  <view class="navdiv">
+    <view class="nav_item">
+      <text class="iconfont icon-meirituijian"></text>
+      <text>每日推荐</text>
+    </view>
+
+    <view class="nav_item">
+      <text class="iconfont icon-gedan1"></text>
+      <text>歌单</text>
+    </view>
+
+    <view class="nav_item">
+      <text class="iconfont icon-icon-ranking"></text>
+      <text>排行榜</text>
+    </view>
+
+    <view class="nav_item">
+      <text class="iconfont icon-diantai"></text>
+      <text>电台</text>
+    </view>
+
+    <view class="nav_item">
+      <text class="iconfont icon-zhiboguankanliangbofangsheyingshexiangjixianxing"></text>
+      <text>直播</text>
+    </view>
+  </view>
+
+  <!-- 推荐歌曲 -->
+  <view class="recommend">
+    <view class="header">
+      <text class="title">推荐歌曲</text>
+      <view>
+        <text>为你精心推荐</text>
+        <text class="more">查看更多</text>
+      </view>
+    </view>
+
+
+ <!-- 内容 -->
+ <scroll-view class="recommend_scroll" enable-flex scroll-x>
+    <view class="scroll_item">
+      <image src="https://img14.360buyimg.com/ddimg/jfs/t1/148418/26/14205/4740/5facb18cE1f1f4c73/8c76eab129938886.png"></image>
+      <text>测试</text>
+    </view>
+    <view class="scroll_item">
+      <image src="https://img14.360buyimg.com/ddimg/jfs/t1/148418/26/14205/4740/5facb18cE1f1f4c73/8c76eab129938886.png"></image>
+      <text>测试</text>
+    </view>
+    <view class="scroll_item">
+      <image src="https://img14.360buyimg.com/ddimg/jfs/t1/148418/26/14205/4740/5facb18cE1f1f4c73/8c76eab129938886.png"></image>
+      <text>测试</text>
+    </view>
+    <view class="scroll_item">
+      <image src="https://img14.360buyimg.com/ddimg/jfs/t1/148418/26/14205/4740/5facb18cE1f1f4c73/8c76eab129938886.png"></image>
+      <text>测试</text>
+    </view>
+    <view class="scroll_item">
+      <image src="https://img14.360buyimg.com/ddimg/jfs/t1/148418/26/14205/4740/5facb18cE1f1f4c73/8c76eab129938886.png"></image>
+      <text>测试</text>
+    </view>
+
+  </scroll-view>
+
+
+
+  </view>
+
+ 
+
+</view>

@@ -1,0 +1,11 @@
+{
+  "pages":[
+    "pages/inedx/inedx"
+  ],
+  "window": {
+    "navigationBarBackgroundColor": "#d43c33",
+    "navigationBarTextStyle": "white",
+    "navigationBarTitleText": "云音乐"
+  },
+  "sitemapLocation": "sitemap.json"
+}
