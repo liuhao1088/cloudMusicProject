@@ -4,7 +4,7 @@ function request(url, data = {}, method) {
   return new Promise((resolve, reject) => {
     //1、new Promise初始化Promise实例的状态为pending
     wx.request({
-      url: config.host + url,
+      url: config.moelHots + url,
       data,
       method,
       success: (res) => {

@@ -26,12 +26,23 @@ Page({
     this.setData({
       recommendList:recommendData.result
     })
-    // let  topData = await commom.request('/personalized',{
-    //   limit: 10
-    // }, 'GET'); 
-    // this.setData({
-    //   topList:topData.result
-    // })
+    let index = 0;
+    let resultArr=[];
+    while(index<5){
+      let  topData = await commom.request('/top/list',{
+        idx: index++
+      }, 'GET'); 
+      let topDataItem ={
+        name:topData.playlist.name,
+        tracks:topData.playlist.tracks.slice(0,3)
+      }
+      resultArr.push(topDataItem);
+      this.setData({
+        topList:resultArr
+      })
+    }
+   
+  // console.log(this.data.topList)
 
   },
 
