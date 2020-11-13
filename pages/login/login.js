@@ -27,7 +27,7 @@ Page({
         icon: 'none',
         duration: 2000
       })
-      return ;
+      return;
     }
     //定义正则表达式
     let phoenReg = /^((13[0-9])|(14[0-9])|(15[0-9])|(17[0-9])|(18[0-9]))\d{8}$/;
@@ -37,52 +37,59 @@ Page({
         icon: 'none',
         duration: 2000
       })
-      return ;
+      return;
     }
 
-    if(!password){
+    if (!password) {
       wx.showToast({
         title: '密码不能为空',
         icon: 'none',
         duration: 2000
       })
-      return ;
+      return;
     }
 
-    let login = await commom.request('/login/cellphone',{
+    let login = await commom.request('/login/cellphone', {
       phone,
       password
     }, 'GET');
-    if(login.code === 200){
+    if (login.code === 200) {
       wx.showToast({
         title: '登录成功',
         icon: 'success',
         duration: 2000
       })
-      return ;
-      
-    }else if(login.code === 400){
+
+      //将用户的信息存储至本地
+      wx.setStorageSync('userInfo',JSON.stringify(login.profile))
+      console.log(login.profile)
+      wx.reLaunch({
+        url: "/pages/personal/personal"
+      })
+      return;
+
+    } else if (login.code === 400) {
       wx.showToast({
         title: '手机号错误',
         icon: 'none',
         duration: 2000
       })
-      return ;
-      
-    }else if(login.code === 502){
+      return;
+
+    } else if (login.code === 502) {
       wx.showToast({
         title: '密码错误',
         icon: 'none',
         duration: 2000
       })
-      return ;
-    }else{
+      return;
+    } else {
       wx.showToast({
         title: '登录失败，请重新登录',
         icon: 'none',
         duration: 2000
       })
-      return ;
+      return;
     }
 
   },

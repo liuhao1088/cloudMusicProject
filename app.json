@@ -1,7 +1,8 @@
 {
   "pages": [
-    "pages/login/login",
     "pages/personal/personal",
+    "pages/login/login",
+    
     "pages/inedx/inedx",
     "pages/video/video"
     

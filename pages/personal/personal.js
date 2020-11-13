@@ -1,45 +1,75 @@
-let startY = 0;//手指起始的坐标
-let moveY = 0;//手指移动的坐标
-let moveDistance = 0;//手指移动的距离
+var commom = require('../../utils/request')
+let startY = 0; //手指起始的坐标
+let moveY = 0; //手指移动的坐标
+let moveDistance = 0; //手指移动的距离
+
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    coverTransform:'0rpx',
-    coveTransition:''
+    coverTransform: '0rpx',
+    coveTransition: '',
+    userInfo: {}, //用户信息
+    recentPlayList: [], //最近播放
   },
-  handleTouchStart(even){
+  handleTouchStart(even) {
     this.setData({
-      coveTransition:""
+      coveTransition: ""
     })
-    startY = even.touches[0].clientY;//获取手指起始的坐标
+    startY = even.touches[0].clientY; //获取手指起始的坐标
   },
-  handleTouchMove(even){
-    moveY = even.touches[0].clientY;//获取手指移动的坐标
+  handleTouchMove(even) {
+    moveY = even.touches[0].clientY; //获取手指移动的坐标
     moveDistance = moveY - startY;
-    if(moveDistance<0){
-      return ;
-    }else if(moveDistance >= 80){
+    if (moveDistance < 0) {
+      return;
+    } else if (moveDistance >= 80) {
       moveDistance = 80;
     }
     this.setData({
-      coverTransform: moveDistance+"rpx"
+      coverTransform: moveDistance + "rpx"
     })
     console.log(this.data.coverTransform)
   },
-  handleTouchEnd(even){
+  handleTouchEnd(even) {
     this.setData({
       coverTransform: "0rpx",
-      coveTransition:"transform 1s linear"
+      coveTransition: "transform 1s linear"
+    })
+  },
+  toLogin() {
+    wx.navigateTo({
+      url: '/pages/login/login',
     })
   },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    let userInfo = wx.getStorageSync('userInfo');
+    //  console.log(userInfo)
+    if (userInfo) {
+      this.setData({
+        userInfo: JSON.parse(userInfo)
+      })
 
+      this.getUserRecentPlayList(this.data.userInfo.userId);
+    }
+
+  },
+
+  //获取用户的播放记录
+  async getUserRecentPlayList(userId){
+    let recentPlayList = await commom.request('/user/record', {
+      type: 0,
+      uid: userId
+    }, 'GET');
+    this.setData({
+      recentPlayList: recentPlayList.allData.slice(0, 10)
+    })
+    console.log(this.data.recentPlayList)
   },
 
   /**
