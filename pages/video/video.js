@@ -5,51 +5,62 @@ Page({
    * 页面的初始数据
    */
   data: {
-    navList:[],
-    navId:'',//标识
-    videoList:[]//获取视频列表
+    navList: [],
+    navId: '', //标识
+    videoList: [] //获取视频列表
   },
 
   //获取导航数据
-  async getNavList(){
+  async getNavList() {
     let navListData = await commom.request('/video/group/list', 'GET');
     this.setData({
-      navList:navListData.data.slice(0, 14),
-      navId:navListData.data[0].id
+      navList: navListData.data.slice(0, 14),
+      navId: navListData.data[0].id
     })
 
     this.getVideoList(this.data.navId);
   },
 
   //获取视频列表
-  async getVideoList(id){
-    let videoListData = await commom.request('/video/group',{id:id} ,'GET');
+  async getVideoList(id) {
+    let videoListData = await commom.request('/video/group', {
+      id: id
+    }, 'GET');
     wx.hideLoading();
     this.setData({
-      videoList:videoListData.datas
+      videoList: videoListData.datas
 
     })
   },
 
   //点击切换导航
-  changNav(event){
+  changNav(event) {
     let navId = event.currentTarget.dataset.id;
     this.setData({
       navId,
-      videoList:[]
+      videoList: []
     })
     wx.showLoading({
       title: '正在加载...',
     })
-    
+
     this.getVideoList(navId);
+  },
+
+  //点击播放/继续播放
+  handlePlay(event) {
+    let vid = event.currentTarget.id;
+    //关闭上一个播放的视频
+    this.vid !== vid && this.videoContext && this.videoContext.stop();
+    this.vid = vid;
+    this.videoContext = wx.createVideoContext(vid);
   },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
     this.getNavList();
-    
+
   },
 
   /**
