@@ -41,8 +41,6 @@ Page({
         topList:resultArr
       })
     }
-   
-  // console.log(this.data.topList)
 
   },
 

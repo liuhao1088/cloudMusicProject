@@ -7,8 +7,16 @@ function request(url, data = {}, method) {
       url: config.host + url,
       data,
       method,
+      header:{
+        cookie :wx.getStorageSync('cookies')?wx.getStorageSync('cookies').find(item => item.indexOf('MUSIC_U') !== -1):''//动态获取cookie值
+      },
       success: (res) => {
-        // console.log("请求成功：", res);
+        if(data.isLogin){//登录请求
+          wx.setStorage({//将用户的cookie存入本地
+            key: 'cookies',
+            data: res.cookies, 
+          })
+        }
         resolve(res.data);//resolve修改Promise的状态为成功状态resolved
       },
       fail: (err) => {

@@ -1,10 +1,11 @@
 {
   "pages": [
+    "pages/video/video",
     "pages/personal/personal",
-    "pages/login/login",
     
-    "pages/inedx/inedx",
-    "pages/video/video"
+   
+    "pages/login/login",
+    "pages/inedx/inedx"
     
   ],
   "window": {

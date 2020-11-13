@@ -69,7 +69,7 @@ Page({
     this.setData({
       recentPlayList: recentPlayList.allData.slice(0, 10)
     })
-    console.log(this.data.recentPlayList)
+    // console.log(this.data.recentPlayList)
   },
 
   /**

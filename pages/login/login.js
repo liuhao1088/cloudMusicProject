@@ -51,7 +51,8 @@ Page({
 
     let login = await commom.request('/login/cellphone', {
       phone,
-      password
+      password,
+      isLogin: true
     }, 'GET');
     if (login.code === 200) {
       wx.showToast({
