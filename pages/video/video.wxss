@@ -43,8 +43,14 @@
 
 
 /* 视频列表 */
+.videoScroll{
+  margin-top: 10rpx;
+  /* calc:可以动态计算css的宽高，运算符左右两边必须加空格 */
+  height: calc(100vh - 160rpx);
+}
+
 .videoItem {
-  padding: 20rpx 3%;
+  padding: 0 3%;
 }
 
 .videoItem .common {

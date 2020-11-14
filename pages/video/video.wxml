@@ -19,11 +19,11 @@
 
 
   <!-- 视频列表 -->
-  <scroll-view scroll-y class="videoScroll">
+  <scroll-view scroll-y class="videoScroll" refresher-enabled refresher-triggered="{{isTriggered}}" bindrefresherrefresh="herrefresh">
     <view class="videoItem" wx:for="{{videoList}}" wx:key="id">
 
       <video src="{{item.data.urlInfo.url}}" bindplay="handlePlay" id="{{item.data.vid}}"
-        poster="{{item.data.coverUrl}}" wx:if="{{videoId === item.data.vid}}" class="common"></video>
+        poster="{{item.data.coverUrl}}" object-fit="cover" bindtimeupdate="updateTime" bindended="ended" wx:if="{{videoId === item.data.vid}}" class="common"></video>
       <!-- 视频image图片代替video标签 -->
       <image wx:else class="common" bindtap="handlePlay" id="{{item.data.vid}}" src="{{item.data.coverUrl}}" ></image>
 

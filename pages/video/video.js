@@ -9,6 +9,8 @@ Page({
     navId: '', //标识
     videoList: [], //获取视频列表
     videoId : '',//视频的id
+    videoUpdateTime:[],//记录视频播放的时长
+    isTriggered: false//标识下拉刷新是否被触发
   },
 
   //获取导航数据
@@ -29,7 +31,8 @@ Page({
     }, 'GET');
     wx.hideLoading();
     this.setData({
-      videoList: videoListData.datas
+      videoList: videoListData.datas,
+      isTriggered:false//关闭下拉刷新
 
     })
   },
@@ -61,9 +64,48 @@ Page({
     //创建控制video标签的实例对象
     this.videoContext = wx.createVideoContext(vid);
     //播放视频
+    //判断当前的视频是否有播放过
+    let {videoUpdateTime} = this.data;
+    let vdeioItem = videoUpdateTime.find(item => item.vid === vid);
+    if(vdeioItem){
+      this.videoContext.seek(vdeioItem.currentTiem);
+    }
     this.videoContext.play();
 
   },
+  //监听视频播放时长
+  updateTime(event){
+    let videoTimeObj = {vid:event.currentTarget.id,currentTiem:event.detail.currentTime}
+    let {videoUpdateTime} = this.data;
+    //判断记录播放时长的数组中是否有当前视频的记录
+    let videoItem = videoUpdateTime.find(item => item.vid === videoTimeObj.vid);
+    if(videoItem){//之前有
+      videoItem.currentTiem = event.detail.currentTime
+    }else{
+      videoUpdateTime.push(videoTimeObj);
+    }
+    this.setData({
+      videoUpdateTime
+    })
+    console.log(this.data.videoUpdateTime)
+  },
+ //监听视频播放结束
+  ended(event){
+    //移除记录播放时长数组中的对象
+    let {videoUpdateTime} = this.data;
+    videoUpdateTime.splice(videoUpdateTime.findIndex(item => item.vid === event.currentTarget.id),1);
+    this.setData({
+      videoUpdateTime
+    })
+  },
+
+  //下拉刷新
+  herrefresh(event){
+    this.getVideoList(this.data.navId);
+   
+  },
+  
+
   /**
    * 生命周期函数--监听页面加载
    */
@@ -118,6 +160,6 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
-
+    
   }
 })
