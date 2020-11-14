@@ -1,4 +1,5 @@
 var commom = require('../../utils/request')
+var  appInstance  = getApp()
 Page({
 
   /**
@@ -52,6 +53,8 @@ Page({
     this.setData({
       isPlay
     })
+     //修改全局音乐播放状态
+    appInstance.globaData.isMusicPlay = isPlay;
   },
 
   /**
@@ -64,18 +67,30 @@ Page({
     })
     console.log(songId)
     this.getMusicDetail(songId)
+
+    //判断当前页面音乐是否播放
+    if(appInstance.globaData.isMusicPlay && appInstance.globaData.musicId === songId){
+      //修改当前页面音乐播放状态
+      this.setData({
+        isPlay : true
+      })
+    }
+
+
     //创建控制音乐播放的实例
     this.backgroundAudioManager = wx.getBackgroundAudioManager();
     //监听音乐播放/暂停
     this.backgroundAudioManager.onPlay(() => {
-      this.playState(true)
+      this.playState(true);
+      //修改全局正在播放音乐的id
+      appInstance.globaData.musicId = songId;
     })
     this.backgroundAudioManager.onPause(() => {
-      this.playState(false)
+      this.playState(false);
     })
     //监视暂停播放音乐
     this.backgroundAudioManager.onStop(() => {
-      this.playState(false)
+      this.playState(false);
     })
   },
 
