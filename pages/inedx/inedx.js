@@ -9,6 +9,11 @@ Page({
     recommendList: [], //推荐歌单
     topList: [], //排行榜
   },
+  recommendSong(){
+    wx.navigateTo({
+      url: '/pages/recommendation/recommendation',
+    })
+  },
 
   /**
    * 生命周期函数--监听页面加载
