@@ -1,2 +1,25 @@
-<!--pages/songDetail/songDetail.wxml-->
-<text>pages/songDetail/songDetail.wxml</text>
+<view class="songDetailContainer">
+  <view class="author">
+    <text wx:for="{{musicDetail.ar}}" wx:key="id">{{item.name}} </text>
+  </view>
+  <view class="circle"></view>
+  <image class="needle {{isPlay?'needleRotate':''}}" src="/static/images/song/needle.png"></image>
+
+  <view class="discContainer {{isPlay?'discAnimation':''}}">
+    <image class="disc" src="/static/images/song/disc.png"></image>
+    <image class="musicImg" src="{{musicDetail.al.picUrl}}"></image>
+  </view>
+
+  <!-- 底部 -->
+  <view class="musicControl">
+    <text class="iconfont icon-iconsMusicyemianbofangmoshiShuffle"></text>
+
+    <text class="iconfont icon-shangyishou" id="pre" bindtap="handleSwitch"></text>
+
+    <text class="iconfont {{isPlay?'icon-zanting': 'icon-bofang'}} big"   bindtap="musicPlay"></text>
+
+    <text class="iconfont icon-next" id="next" bindtap="handleSwitch"></text>
+
+    <text class="iconfont icon-iconsMusicyemianbofangmoshiPlayList"></text>
+  </view>
+</view>

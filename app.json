@@ -1,10 +1,12 @@
 {
   "pages": [
     "pages/recommendation/recommendation",
+    "pages/songDetail/songDetail",
+   
     "pages/inedx/inedx",
     "pages/video/video",
     "pages/personal/personal",
-    "pages/songDetail/songDetail",
+   
     
    
     "pages/login/login"
@@ -39,5 +41,6 @@
       }
     ]
   },
+  "requiredBackgroundModes": ["audio"],
   "sitemapLocation": "sitemap.json"
 }
