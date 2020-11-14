@@ -7,7 +7,8 @@ Page({
   data: {
     navList: [],
     navId: '', //标识
-    videoList: [] //获取视频列表
+    videoList: [], //获取视频列表
+    videoId : '',//视频的id
   },
 
   //获取导航数据
@@ -51,9 +52,17 @@ Page({
   handlePlay(event) {
     let vid = event.currentTarget.id;
     //关闭上一个播放的视频
-    this.vid !== vid && this.videoContext && this.videoContext.stop();
-    this.vid = vid;
+    // this.vid !== vid && this.videoContext && this.videoContext.stop();
+    // this.vid = vid;
+    //更新data中videoId的状态数据
+    this.setData({
+      videoId:vid
+    })
+    //创建控制video标签的实例对象
     this.videoContext = wx.createVideoContext(vid);
+    //播放视频
+    this.videoContext.play();
+
   },
   /**
    * 生命周期函数--监听页面加载

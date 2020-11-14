@@ -7,12 +7,7 @@
   </view>
 
   <!-- 导航 -->
-  <scroll-view 
-      scroll-x 
-      enable-flex 
-      scroll-into-view="{{'scroll'+ navId}}"
-      scroll-with-animation
-      class="navScroll" >
+  <scroll-view scroll-x enable-flex scroll-into-view="{{'scroll'+ navId}}" scroll-with-animation class="navScroll">
     <view id="{{'scroll'+ item.id}}" class="navItem" wx:for="{{navList}}" wx:key="id">
       <view class="navContent {{navId == item.id?'active':'' }}" bindtap="changNav" data-id="{{item.id}}">
         {{item.name}}
@@ -27,13 +22,12 @@
   <scroll-view scroll-y class="videoScroll">
     <view class="videoItem" wx:for="{{videoList}}" wx:key="id">
 
-      <video
-       src="{{item.data.urlInfo.url}}"
-       bindplay="handlePlay"
-       id="{{item.data.vid}}"
-       ></video>
+      <video src="{{item.data.urlInfo.url}}" bindplay="handlePlay" id="{{item.data.vid}}"
+        poster="{{item.data.coverUrl}}" wx:if="{{videoId === item.data.vid}}" class="common"></video>
+      <!-- 视频image图片代替video标签 -->
+      <image wx:else class="common" bindtap="handlePlay" id="{{item.data.vid}}" src="{{item.data.coverUrl}}" ></image>
 
-      <view class="content">{{item.data.title}}</view>
+      <view  class="content">{{item.data.title}}</view>
 
       <view class="footer">
         <image class="avatar" src="{{item.data.creator.avatarUrl}}"></image>

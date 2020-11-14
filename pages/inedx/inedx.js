@@ -5,40 +5,40 @@ Page({
    * 页面的初始数据
    */
   data: {
-    imgUrl: [],//轮播图
-    recommendList:[],//推荐歌单
-    topList:[],//排行榜
+    imgUrl: [], //轮播图
+    recommendList: [], //推荐歌单
+    topList: [], //排行榜
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: async function (options) {
-    let imgUrlDataLsit = await commom.request('/banner',{
+    let imgUrlDataLsit = await commom.request('/banner', {
       type: 2
     }, 'GET');
     this.setData({
-      imgUrl:imgUrlDataLsit.banners
+      imgUrl: imgUrlDataLsit.banners
     })
-    let recommendData = await commom.request('/personalized',{
+    let recommendData = await commom.request('/personalized', {
       limit: 10
-    }, 'GET'); 
+    }, 'GET');
     this.setData({
-      recommendList:recommendData.result
+      recommendList: recommendData.result
     })
     let index = 0;
-    let resultArr=[];
-    while(index<5){
-      let  topData = await commom.request('/top/list',{
+    let resultArr = [];
+    while (index < 5) {
+      let topData = await commom.request('/top/list', {
         idx: index++
-      }, 'GET'); 
-      let topDataItem ={
-        name:topData.playlist.name,
-        tracks:topData.playlist.tracks.slice(0,3)
+      }, 'GET');
+      let topDataItem = {
+        name: topData.playlist.name,
+        tracks: topData.playlist.tracks.slice(0, 3)
       }
       resultArr.push(topDataItem);
       this.setData({
-        topList:resultArr
+        topList: resultArr
       })
     }
 

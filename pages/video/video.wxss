@@ -46,12 +46,6 @@
 .videoItem {
   padding: 20rpx 3%;
 }
-.videoItem video{
-  height: 360rpx;
-  width: 100%;
-  border-radius: 10rpx;
-}
-
 
 .videoItem .common {
   width: 100%;
