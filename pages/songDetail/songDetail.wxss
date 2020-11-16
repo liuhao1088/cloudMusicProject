@@ -7,6 +7,14 @@
   padding-top: 20rpx;
 }
 
+.author{
+  width: 50%;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 .circle{
   position: relative;
   z-index: 100;

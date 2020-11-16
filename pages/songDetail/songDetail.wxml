@@ -1,5 +1,6 @@
 <view class="songDetailContainer">
   <view class="author">
+    
     <text wx:for="{{musicDetail.ar}}" wx:key="id">{{item.name}} </text>
   </view>
   <view class="circle"></view>
