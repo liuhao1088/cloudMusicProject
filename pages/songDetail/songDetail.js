@@ -1,5 +1,6 @@
 var commom = require('../../utils/request')
 const PubSub = require('pubsub-js');
+const moment = require('moment');
 var  appInstance  = getApp()
 Page({
 
@@ -11,8 +12,9 @@ Page({
     musicDetail: {}, //音乐详情
     songId: '', //音乐id
     musicUrl:'',//音乐的链接
-    currentTime:'00：00',//实时时间
-    durationTime:'00：00'//总时间
+    currentTime:'00:00',//实时时间
+    durationTime:'00:00',//总时间
+    width:0//实时进度条的宽度
   },
 
   //获取音乐详情
@@ -20,9 +22,13 @@ Page({
     let musicDetailData = await commom.request('/song/detail', {
       ids: songId
     }, 'GET');
+    //时间转换毫秒转换成分钟
     let time = musicDetailData.songs[0].dt;
+    let durationTime = moment(time).format('mm:ss')
+    //更新数据
     this.setData({
-      musicDetail: musicDetailData.songs[0]
+      musicDetail: musicDetailData.songs[0],
+      durationTime
     })
     //动态显示标题
     wx.setNavigationBarTitle({
@@ -117,6 +123,29 @@ Page({
     //监视暂停播放音乐
     this.backgroundAudioManager.onStop(() => {
       this.playState(false);
+    })
+
+     //监视音乐播放自然介绍
+     this.backgroundAudioManager.onEnded(() => {
+      //自动切换至下一首音乐，并且自动播放
+      PubSub.publish('switchType','next')
+      //将实时进度条的长度变成0
+      this.setData({
+        width:0,
+        currentTime:'00:00'
+      })
+    })
+
+    //监听音乐实时播放的进度
+    this.backgroundAudioManager.onTimeUpdate(() =>{
+      //格式化实时的播放时间
+      let currentTime = moment(this.backgroundAudioManager.currentTime*1000).format('mm:ss')
+      //求进度条的长度 实时长度=实时的时长（this.backgroundAudioManager.currentTime）/总时长（this.backgroundAudioManager.duration）*总长度（450）
+      let width = this.backgroundAudioManager.currentTime/this.backgroundAudioManager.duration * 450
+      this.setData({
+        currentTime,
+        width
+      })
     })
   },
 

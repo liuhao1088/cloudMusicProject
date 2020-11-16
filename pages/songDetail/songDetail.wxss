@@ -174,7 +174,6 @@
   top: 0;
   left: 0;
   z-index: 1;
-  width: 100rpx;
   height: 4rpx;
   background-color: red;
 }
@@ -182,7 +181,6 @@
 .audioTimeBar .audioCircle{
   position: absolute;
   top: -4rpx;
-  left: 0;
   right: -12rpx;
   height: 12rpx;
   width: 12rpx;
