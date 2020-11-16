@@ -1,17 +1,15 @@
 {
   "pages": [
+    "pages/search/search",
+    "pages/inedx/inedx",
     "pages/recommendation/recommendation",
     "pages/songDetail/songDetail",
-   
-    "pages/inedx/inedx",
     "pages/video/video",
     "pages/personal/personal",
-   
     
-   
+    
     "pages/login/login"
-   
-    
+
   ],
   "window": {
     "navigationBarBackgroundColor": "#d43c33",

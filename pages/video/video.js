@@ -104,6 +104,13 @@ Page({
     this.getVideoList(this.data.navId);
    
   },
+
+  //跳转搜索页
+  toSearch(){
+    wx.navigateTo({
+      url: '/pages/search/search',
+    })
+  },
   
 
   /**
