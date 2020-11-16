@@ -1,6 +1,6 @@
 <view class="songDetailContainer">
   <view class="author">
-    
+
     <text wx:for="{{musicDetail.ar}}" wx:key="id">{{item.name}} </text>
   </view>
   <view class="circle"></view>
@@ -11,13 +11,23 @@
     <image class="musicImg" src="{{musicDetail.al.picUrl}}"></image>
   </view>
 
+  <!-- 进度条控制区域 -->
+  <view class="progressControl">
+    <text>{{currentTime}}</text>
+    <view class="barControl">
+      <view class="audioTimeBar">
+        <view class="audioCircle"></view>
+      </view>
+    </view>
+    <text>{{durationTime}}</text>
+  </view>
   <!-- 底部 -->
   <view class="musicControl">
     <text class="iconfont icon-iconsMusicyemianbofangmoshiShuffle"></text>
 
     <text class="iconfont icon-shangyishou" id="pre" bindtap="handleSwitch"></text>
 
-    <text class="iconfont {{isPlay?'icon-zanting': 'icon-bofang'}} big"   bindtap="musicPlay"></text>
+    <text class="iconfont {{isPlay?'icon-zanting': 'icon-bofang'}} big" bindtap="musicPlay"></text>
 
     <text class="iconfont icon-next" id="next" bindtap="handleSwitch"></text>
 

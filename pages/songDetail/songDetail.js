@@ -1,4 +1,5 @@
 var commom = require('../../utils/request')
+const PubSub = require('pubsub-js');
 var  appInstance  = getApp()
 Page({
 
@@ -8,7 +9,10 @@ Page({
   data: {
     isPlay: false, //音乐是否播放
     musicDetail: {}, //音乐详情
-    songId: '' //音乐id
+    songId: '', //音乐id
+    musicUrl:'',//音乐的链接
+    currentTime:'00：00',//实时时间
+    durationTime:'00：00'//总时间
   },
 
   //获取音乐详情
@@ -16,6 +20,7 @@ Page({
     let musicDetailData = await commom.request('/song/detail', {
       ids: songId
     }, 'GET');
+    let time = musicDetailData.songs[0].dt;
     this.setData({
       musicDetail: musicDetailData.songs[0]
     })
@@ -28,19 +33,25 @@ Page({
   musicPlay() {
     let isPlay = !this.data.isPlay;
     let {
-      songId
+      songId,musicUrl
     } = this.data;
-    this.musicControl(isPlay, songId);
+    this.musicControl(isPlay, songId,musicUrl);
   },
 
   //控制音乐播放/停止的功能
-  async musicControl(isPlay, songId) {
+  async musicControl(isPlay, songId,musicUrl) {
     if (isPlay) { //音乐播放
+      if(!musicUrl){
+        let musicUrlData = await commom.request('/song/url', {
+          id: songId
+        }, 'GET');
+        musicUrl = musicUrlData.data[0].url;
+        this.setData({
+          musicUrl
+        })
+      }
       //获取音乐链接
-      let musicUrl = await commom.request('/song/url', {
-        id: songId
-      }, 'GET');
-      this.backgroundAudioManager.src = musicUrl.data[0].url;
+      this.backgroundAudioManager.src = musicUrl;
       this.backgroundAudioManager.title = this.data.musicDetail.name
 
     } else { //音乐暂停
@@ -57,6 +68,25 @@ Page({
     appInstance.globaData.isMusicPlay = isPlay;
   },
 
+  //点击切歌的功能
+  handleSwitch(event){
+    //获取切歌的类型
+    let type = event.currentTarget.id;
+    //关闭当前播放的音乐
+    this.backgroundAudioManager.stop();
+    //订阅来自recommendation页面发布的songId消息
+    PubSub.subscribe('songId',(msg,songId) =>{
+      //获取音乐详情信息
+      this.getMusicDetail(songId);
+      //自动播放当前的音乐
+      this.musicControl(true,songId);
+      //取消订阅
+      PubSub.unsubscribe(songId);
+    })
+    //发布消息数据给recommdndSong页面
+    PubSub.publish('switchType',type)
+    
+  },
   /**
    * 生命周期函数--监听页面加载
    */
@@ -65,9 +95,7 @@ Page({
     this.setData({
       songId
     })
-    console.log(songId)
     this.getMusicDetail(songId)
-
     //判断当前页面音乐是否播放
     if(appInstance.globaData.isMusicPlay && appInstance.globaData.musicId === songId){
       //修改当前页面音乐播放状态
@@ -75,8 +103,6 @@ Page({
         isPlay : true
       })
     }
-
-
     //创建控制音乐播放的实例
     this.backgroundAudioManager = wx.getBackgroundAudioManager();
     //监听音乐播放/暂停

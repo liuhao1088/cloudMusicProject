@@ -16,7 +16,7 @@
 
     <!-- 内容 -->
     <scroll-view scroll-y class="listScroll">
-      <view class="scrollItem" wx:for="{{songList}}" wx:key="id" id="{{item.id}}" bindtap="songDetail">
+      <view class="scrollItem" wx:for="{{songList}}" wx:key="id" data-index="{{index}}" id="{{item.id}}" bindtap="songDetail">
         <image src="{{item.album.picUrl}}"></image>
         <view class="musicInfo">
           <text class="musicName">{{item.name}}</text>

@@ -1,0 +1,22 @@
+{
+  "name": "cloudmusicproject",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/liuhao1088/cloudMusicProject.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/liuhao1088/cloudMusicProject/issues"
+  },
+  "homepage": "https://github.com/liuhao1088/cloudMusicProject#readme",
+  "dependencies": {
+    "pubsub-js": "^1.9.1"
+  }
+}

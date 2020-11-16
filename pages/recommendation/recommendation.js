@@ -1,4 +1,5 @@
 var commom = require('../../utils/request')
+const PubSub = require('pubsub-js');
 Page({
 
   /**
@@ -7,10 +8,15 @@ Page({
   data: {
     day: '', //天
     month: '', //月
-    songList: '' //歌曲列表
+    songList: '',//歌曲列表
+    songIndex: 0//点击音乐的下标
   },
   songDetail(even) {
     let songId = even.currentTarget.id;
+    let songIndex = even.currentTarget.dataset.index;
+    this.setData({
+      songIndex
+    })
     wx.navigateTo({
       url: '/pages/songDetail/songDetail?ids=' + songId,
     })
@@ -48,6 +54,26 @@ Page({
     }
     //获取歌曲列表
     this.getSongList();
+
+    //订阅来自songDetail页面发布的消息
+    PubSub.subscribe('switchType',(msg,type) =>{
+      let {songList,songIndex} = this.data;
+      if(type === 'pre'){//上一首
+        (songIndex === 0) && (songIndex = songList.length);
+        songIndex -= 1;
+      }else{//下一首
+        (songIndex === songList.length -1) && (songIndex = -1)
+        songIndex += 1;
+      }
+      //更新下标
+      this.setData({
+        songIndex
+      })
+      let songId = songList[songIndex].id;
+      //将songId回传给songDetail页面
+      PubSub.publish('songId',songId);
+      console.log(songId)
+    });
   },
 
   /**
