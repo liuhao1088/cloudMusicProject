@@ -3,8 +3,9 @@
   <view class="header">
     <view class="searhInput">
       <text class="iconfont icon-search1 searchIcon"></text>
-      <input type="text" placeholder="{{placeholderName}}" placeholder-class="placeholder"
+      <input type="text" value="{{searchContent}}" placeholder="{{placeholderName}}" placeholder-class="placeholder"
         bindinput="handleInputChange" />
+      <text class="clear" bindtap="clearSearhContent" hidden="{{!searchContent}}">X</text>
     </view>
     <text class="cancel">取消</text>
   </view>
@@ -22,6 +23,14 @@
   </block>
   <!-- 热搜榜 -->
   <block wx:else>
+    <!-- 搜索历史记录 -->
+    <view class="history" wx:if="{{historyList.length}}">
+      <view class="title">历史</view>
+      <view class="historyItem" wx:for="{{historyList}}" wx:key="id">
+        {{item}}
+      </view>
+      <view class="iconfont icon-shanchu delete" bindtap="deleteSearchHistory"></view>
+    </view>
     <view class="hotContainer">
       <view class="title">热搜榜</view>
       <!-- 列表 -->

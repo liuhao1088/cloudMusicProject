@@ -10,6 +10,7 @@ Page({
     hotList: [], //热搜榜数据
     searchContent: '', //用户输入表单下的数据
     searchList: [], //搜索关键字内容
+    historyList: [], //搜索历史记录
   },
 
   //获取默认搜索关键字
@@ -28,24 +29,39 @@ Page({
 
   },
   async getSearchList() {
-    if(!this.data.searchContent){
+    if (!this.data.searchContent) {
       this.setData({
-        searchList:[]
+        searchList: [],
       })
-      return ;
+      return;
     }
+    let {
+      searchContent,
+      historyList
+    } = this.data;
     //获取关键字内容
     let searchListData = await commom.request('/search', {
-      keywords: this.data.searchContent,
+      keywords: searchContent,
       limit: 10
     }, 'GET');
     this.setData({
       searchList: searchListData.result.songs
     })
+
+    //将搜索的关键字添加到搜索记录中
+    if (historyList.indexOf(searchContent) === -1) {
+      historyList.splice(historyList.indexOf(searchContent), 1);
+    }
+    historyList.unshift(searchContent);
+    this.setData({
+      historyList
+    })
+    //把历史记录存在本地
+    wx.setStorageSync('searchHistory', historyList)
   },
   //获取input输入的内容
   handleInputChange(event) {
-    console.log(event.detail.value)
+    
     this.setData({
       searchContent: event.detail.value.trim()
     })
@@ -60,6 +76,39 @@ Page({
     }, 300)
   },
 
+  //获取历史记录
+  getHistoryList() {
+    let historyList = wx.getStorageSync('searchHistory');
+    this.setData({
+      historyList
+    })
+  },
+  //清空搜索内容
+  clearSearhContent() {
+    this.setData({
+      searchContent: '',
+      searchList: []
+    })
+  },
+  //删除历史记录
+  deleteSearchHistory() {
+    let that = this;
+    wx.showModal({
+      content: '确认删除吗？',
+      success(res) {
+        if (res.confirm) {
+          //清空data中historyList
+          that.setData({
+            historyList: []
+          })
+          //移除本地historyList
+          wx.removeStorageSync('searchHistory');
+        } 
+      }
+    })
+
+  },
+
   /**
    * 生命周期函数--监听页面加载
    */
@@ -68,6 +117,15 @@ Page({
     this.getplaceholderName();
     //获取热搜榜数据
     this.getHotList();
+    //获取历史记录
+    this.getHistoryList();
+    // if(this.data.historyList === ''){
+    //   console.log("111111")
+    //   this.setData({
+    //     historyList:[]
+    //   })
+    // }
+    
   },
 
   /**
