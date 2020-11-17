@@ -1,8 +1,8 @@
 {
   "pages": [
+    "pages/inedx/inedx",
     "pages/other/other",
     "pages/search/search",
-    "pages/inedx/inedx",
     "pages/recommendation/recommendation",
     "pages/songDetail/songDetail",
     "pages/video/video",
