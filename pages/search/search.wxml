@@ -26,7 +26,7 @@
       <view class="title">热搜榜</view>
       <!-- 列表 -->
       <view class="hotList">
-        <view class="hotItem" wx:for="{{hotList}}" wx:key="searchWord">
+        <view class="hotItem" wx:for="{{hotList}}" wx:key="searchWord" id>
           <text class="order">{{index+1}}</text>
           <text class="name">{{item.searchWord}}</text>
           <image class="iconImg" wx:if="{{item.iconUrl}}" src="{{item.iconUrl}}"></image>
