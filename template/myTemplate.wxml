@@ -1,0 +1,9 @@
+<template name="myTmp">
+  <view class="title">自定义模板</view>
+  <view class="userName">用户名：{{userName}}</view>
+  <view class="age">年龄：{{age}}</view>
+</template>
+
+<template name="img">
+  <image mode="widthFix" src="{{url}}"></image>
+</template>

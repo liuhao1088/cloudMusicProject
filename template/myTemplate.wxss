@@ -1,0 +1,9 @@
+.title{
+  font-size: 30rpx;
+  color: red;
+}
+
+image{
+  height: 100%;
+  width: 100%;
+}

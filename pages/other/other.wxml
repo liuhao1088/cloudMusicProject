@@ -1,0 +1,7 @@
+<import src="/template/myTemplate.wxml"></import>
+<view class="otherContainer">
+  <!-- 测试模板 -->
+  <view>测试使用模板</view>
+  <template is="myTmp" data="{{...item}}"></template>
+  <template is="img" data="{{...img01}}"></template>
+</view>
